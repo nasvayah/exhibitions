@@ -1,5 +1,7 @@
 # exhibitions
 Scripts for exhibition feedback analysis
 
-## Карта скриптов:  
--выаыва
+## Карта скриптов: 
+---  
+### 1. dp.py  
+
