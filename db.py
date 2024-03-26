@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-
+#далее изменить на необходимые параметры подключения к бд
 class DB:
     def __init__(self):
         self.conn = (psycopg2.connect(
@@ -32,6 +32,7 @@ class DB:
 
 conn = DB()
 
+#изменить названия столбцов и таблицы на необходимые
 query = """select
 *
 from (

@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+#далее изменить на необходимые параметры подключения к бд
 class DB:
     def __init__(self):
         self.conn = psycopg2.connect(host='rc1b-2im86q7efcxd3klt.mdb.yandexcloud.net',
@@ -74,23 +75,17 @@ import matplotlib.pyplot as plt
 import nltk
 from nltk.corpus import stopwords
 
-# Функция для визуализации облака слов
 def plot_cloud(wordcloud):
-    # Устанавливаем размер картинки
     plt.figure(figsize=(40, 30))
-    # Показать изображение
     plt.imshow(wordcloud)
-    # Без подписей на осях
     plt.axis("off")
     plt.tight_layout()
 
 from wordcloud import WordCloud, ImageColorGenerator
 
 
-# Записываем в переменную стоп-слова русского языка
 STOPWORDS_RU = stopwords.words("russian")
 
-# Генерируем облако слов
 wordcloud = WordCloud(width = 2000,
                       height = 1500,
                       random_state=1,
@@ -100,6 +95,5 @@ wordcloud = WordCloud(width = 2000,
                       collocations=False,
                       stopwords = STOPWORDS_RU).generate(text)
 
-# Рисуем картинку
 plot_cloud(wordcloud)
 plt.show()

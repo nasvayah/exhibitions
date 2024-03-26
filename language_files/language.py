@@ -1,6 +1,6 @@
 import re
 
-
+#основная функция
 def detect_language(text):
     cleaned_text = re.sub(r'[^a-zA-Zа-яА-Яa-zA-Z]', ' ', text)
     english_letters = len(re.findall(r'[a-zA-Z]', cleaned_text))
@@ -16,6 +16,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+#далее изменить на необходимые параметры подключения к бд
 class DB:
     def __init__(self):
         self.conn = psycopg2.connect(host='rc1b-2im86q7efcxd3klt.mdb.yandexcloud.net',
@@ -39,6 +40,8 @@ class DB:
         self.conn.commit()
 
 conn = DB()
+
+#изменить названия столбцов и таблицы на необходимые
 query = """select 
 * 
 from (

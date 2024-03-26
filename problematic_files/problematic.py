@@ -42,6 +42,8 @@ def vectorize_sequences(sequences, dimension=10000):
             results[i, index] += 1.
     return results
 
+
+#далее изменить название csv файла, если потребуется
 banks = pd.read_csv('problem.csv', sep=',', index_col='id');
 banks['Preprocessed_texts'] = banks.apply(lambda row: preprocess(row['text'], punctuation_marks, stop_words, morph), axis=1)
 
@@ -63,6 +65,7 @@ def result(text):
     preprocessed_text = preprocess(text, stop_words, punctuation_marks, morph)
     seq = text_to_sequence(preprocessed_text, word_to_index)
     bow = vectorize_sequences([seq], max_words)
+                                                                    # прописать путь до модели
     lr = joblib.load('logistic_regression_model.pkl')
     result = lr.predict(bow)
     return int(result[0])
@@ -75,6 +78,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+#далее изменить на необходимые параметры подключения к бд
 class DB:
     def __init__(self):
         self.conn = psycopg2.connect(host='rc1b-2im86q7efcxd3klt.mdb.yandexcloud.net',
@@ -98,6 +102,7 @@ class DB:
         self.conn.commit()
 
 conn = DB()
+#изменить скрипт
 query = """select
 res1.question_answer
 from sandbox.res1
@@ -117,13 +122,13 @@ for row in data:
     print(text)
     print(res)
     if 0 == res:
-        probl+=1
-        update_query = f""" update sandbox.res1
+        probl+=1            #изменить скрипт
+        update_query = f""" update sandbox.res1 
         set score = 'PROBLEM'
         where question_answer = '{text}'
         """
     elif 1 == res:
-        simp+=1
+        simp+=1             #изменить скрипт
         update_query = f""" update sandbox.res1
         set score = 'SIMPLE'
         where question_answer = '{text}'

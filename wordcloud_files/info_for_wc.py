@@ -3,6 +3,7 @@ from nltk.collocations import BigramCollocationFinder
 from nltk.metrics import BigramAssocMeasures
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
+#далее изменить на необходимые параметры подключения к бд в файле db.py
 from db import data
 
 
@@ -32,7 +33,7 @@ def preprocess_w(text, stop_words, punctuation_marks, morph):
 
 punctuation_marks = ['!', ',', '(', ')', ':', '-', '?', '.', '..',
                      '...', '«', '»', ';', '–', '--']
-stop_words = stopwords.words("russian") + ['всё', 'это']
+stop_words = stopwords.words("russian") + ['всё', 'это']       #дополнить список, если нужно
 morph = pymorphy3.MorphAnalyzer()
 
 text = ''

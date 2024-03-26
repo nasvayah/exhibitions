@@ -6,7 +6,7 @@ from torch.optim import AdamW
 from torch.utils.data import DataLoader
 from transformers import BertTokenizer, BertForSequenceClassification, Trainer, TrainingArguments
 
-
+#далее изменить название csv файла, если потребуется
 df = pd.read_csv('test.csv')
 
 label_map = {'POSITIVE': 2, 'NEUTRAL': 1, 'NEGATIVE': 0}
@@ -79,5 +79,6 @@ trainer = Trainer(
 
 trainer.train()
 
+#прописать путь до модели
 save_directory = './fine_tuned_model'
 model.save_pretrained(save_directory)

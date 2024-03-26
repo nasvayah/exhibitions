@@ -12,6 +12,7 @@ import joblib
 max_words = 10000
 random_state = 42
 
+#далее изменить название csv файла, если потребуется
 banks = pd.read_csv('problem.csv', sep=',', index_col='id');
 
 def preprocess(text, stop_words, punctuation_marks, morph):
@@ -77,4 +78,6 @@ x_train = vectorize_sequences(x_train_seq, max_words)
 lr = LogisticRegression(random_state=random_state, max_iter=500)
 
 lr.fit(x_train, y_train)
+
+#прописать путь до модели
 joblib.dump(lr, 'logistic_regression_model.pkl')

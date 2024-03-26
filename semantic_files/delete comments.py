@@ -60,7 +60,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-
+#далее изменить на необходимые параметры подключения к бд
 class DB:
     def __init__(self):
         self.conn = psycopg2.connect(host='rc1b-2im86q7efcxd3klt.mdb.yandexcloud.net',
@@ -84,6 +84,7 @@ class DB:
         self.conn.commit()
 
 conn0 = DB()
+#изменить названия столбцов и таблицы на необходимые
 query0 = """select 
 max_id from public.old_id"""
 conn0.execute(query0)
@@ -95,6 +96,7 @@ for row in data0:
 
 
 conn = DB()
+#изменить названия столбцов и таблицы на необходимые
 query = f"""select
 guides.id, guides.question_name, guides.question_id, guides.question_answer
 from public.guides
@@ -111,6 +113,7 @@ conn.execute(query)
 data = conn.fetch_all()
 
 conn1 = DB()
+#изменить названия столбцов и таблицы на необходимые
 query1 = """select guides_info.fio from guides_info"""
 conn1.execute(query1)
 names = conn1.fetch_all()
@@ -141,6 +144,7 @@ for row in data:
         id_file.write("'" + str(id) +"'" + ','+ '\n')
         question_id_file.write("'" + str(question_id)+ "'"+ ',' + '\n')
         conn2 = DB()
+        # изменить названия столбцов и таблицы на необходимые
         update_query = f""" update public.guides
         set question_answer = ''
         where question_name in (

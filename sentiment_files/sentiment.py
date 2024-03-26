@@ -1,6 +1,7 @@
 from transformers import BertForSequenceClassification, BertTokenizer
 import torch
 
+#прописать путь до модели
 model = BertForSequenceClassification.from_pretrained('./fine_tuned_model')
 tokenizer = BertTokenizer.from_pretrained('blanchefort/rubert-base-cased-sentiment')
 
@@ -27,6 +28,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+#далее изменить на необходимые параметры подключения к бд
 class DB:
     def __init__(self):
         self.conn = psycopg2.connect(host='rc1b-2im86q7efcxd3klt.mdb.yandexcloud.net',
@@ -50,6 +52,7 @@ class DB:
         self.conn.commit()
 cp 
 conn = DB()
+#изменить названия столбцов и таблицы на необходимые
 query = """select
 res0.question_answer
 from sandbox.res0
@@ -73,6 +76,7 @@ for row in data:
     res = predict_sentiment(text)
     print(text)
     print (res)
+    # изменить названия столбцов и таблицы на необходимые
     if "NEUTRAL" == res:
         neu+=1
         update_query = f""" update sandbox.res0
