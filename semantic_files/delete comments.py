@@ -1,8 +1,7 @@
-
 from spellchecker import SpellChecker
-#import language_tool_python
 import re
-#import emoji
+from OSRus import conn
+
 
 def deEmojify(text):
     regrex_pattern = re.compile(pattern = "["
@@ -53,49 +52,18 @@ def result(text, custom_dictionary):
 
 
 
-
-import os.path
-import psycopg2
-from dotenv import load_dotenv
-
-load_dotenv()
-
-#далее изменить на необходимые параметры подключения к бд
-class DB:
-    def __init__(self):
-        self.conn = psycopg2.connect(host='rc1b-2im86q7efcxd3klt.mdb.yandexcloud.net',
-                                     port='6432',
-                                     user='ex_tg',
-                                     password='rFW3sRYyph6xUJw',
-                                     dbname='exhibition_db',
-                                     sslmode='require')
-        self.cur = self.conn.cursor()
-
-    def execute(self, query):
-        self.cur.execute(query)
-
-    def fetch_all(self):
-        return self.cur.fetchall()
-
-    def close(self):
-        self.cur.close()
-        self.conn.close()
-    def commit(self):
-        self.conn.commit()
-
-conn0 = DB()
 #изменить названия столбцов и таблицы на необходимые
 query0 = """select 
 max_id from public.old_id"""
-conn0.execute(query0)
-data0 = conn0.fetch_all()
+conn.execute(query0)
+data0 = conn.fetch_all()
 for row in data0:
     max_id = data0[0]
     print(int(str(max_id)[1:-2]))
     max_id = int(str(max_id)[1:-2])
 
 
-conn = DB()
+
 #изменить названия столбцов и таблицы на необходимые
 query = f"""select
 guides.id, guides.question_name, guides.question_id, guides.question_answer
@@ -112,11 +80,11 @@ AND guides.question_answer notnull and guides.question_answer!='' and guides.que
 conn.execute(query)
 data = conn.fetch_all()
 
-conn1 = DB()
+
 #изменить названия столбцов и таблицы на необходимые
 query1 = """select guides_info.fio from guides_info"""
-conn1.execute(query1)
-names = conn1.fetch_all()
+conn.execute(query1)
+names = conn.fetch_all()
 splnames = []
 for i in names:
     name = str(i[0]).lower()
@@ -143,7 +111,6 @@ for row in data:
         print(id, ' ',question_id, ' ', text)
         id_file.write("'" + str(id) +"'" + ','+ '\n')
         question_id_file.write("'" + str(question_id)+ "'"+ ',' + '\n')
-        conn2 = DB()
         # изменить названия столбцов и таблицы на необходимые
         update_query = f""" update public.guides
         set question_answer = ''
@@ -163,13 +130,12 @@ for row in data:
         set max_id={id}
         where id = 1
         ;"""
-        conn2.execute(update_query)
-        conn2.commit()
+        conn.execute(update_query)
+        conn.commit()
         
 
 
 
 
 conn.close()
-conn0.close()
-conn1.close()
+
