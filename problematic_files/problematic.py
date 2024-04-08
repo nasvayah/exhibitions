@@ -1,13 +1,11 @@
 import pandas as pd
 import numpy as np
 import pymorphy3
-import nltk
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
-from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import train_test_split
 from collections import Counter
 import joblib
+from OSRus import conn
 
 max_words = 10000
 random_state = 42
@@ -72,36 +70,6 @@ def result(text):
 
 
 
-import os.path
-import psycopg2
-from dotenv import load_dotenv
-
-load_dotenv()
-
-#далее изменить на необходимые параметры подключения к бд
-class DB:
-    def __init__(self):
-        self.conn = psycopg2.connect(host='rc1b-2im86q7efcxd3klt.mdb.yandexcloud.net',
-                                     port='6432',
-                                     user='ex_tg',
-                                     password='rFW3sRYyph6xUJw',
-                                     dbname='exhibition_db',
-                                     sslmode='require')
-        self.cur = self.conn.cursor()
-
-    def execute(self, query):
-        self.cur.execute(query)
-
-    def fetch_all(self):
-        return self.cur.fetchall()
-
-    def close(self):
-        self.cur.close()
-        self.conn.close()
-    def commit(self):
-        self.conn.commit()
-
-conn = DB()
 #изменить скрипт
 query = """select
 res1.question_answer
