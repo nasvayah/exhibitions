@@ -1,8 +1,8 @@
 
 from spellchecker import SpellChecker
-import language_tool_python
+#import language_tool_python
 import re
-import emoji
+#import emoji
 
 def deEmojify(text):
     regrex_pattern = re.compile(pattern = "["
